@@ -86,6 +86,10 @@ if zoom_range > 0:
   end_date = df.index[-1]
   fig.update_xaxes(range=[start_date, end_date])
 
+if usage_type == 'specific':
+  # hard-code the lower bound to be -20 and upper bound to be the max of the first column + 10.
+  fig.update_yaxes(range=[-20, df[df.columns[0]].max() + 10], secondary_y=True)
+
 # ---------------------------------------------------------------
 # display the figure
 # ---------------------------------------------------------------
