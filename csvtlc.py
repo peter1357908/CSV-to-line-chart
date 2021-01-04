@@ -80,6 +80,12 @@ else:
 # set the default hover mode to 'compare data' rather than 'show closest data'
 fig.update_layout(hovermode='x')
 
+# add in vertical and horizontal lines that are displayed when the cursor hovers
+# over the plot... currently plotly does not directly support "displaying the lines
+# all the time"... a shame. Change hovermode for a slightly different experience.
+fig.update_xaxes(showspikes=True, spikemode='across', spikesnap='cursor', spikedash='solid', spikethickness=1)
+fig.update_yaxes(showspikes=True, spikemode='across', spikesnap='cursor', spikedash='solid', spikethickness=1)
+
 # set the zoom range if necessary
 if zoom_range > 0:
   start_date = df.index[-zoom_range]
@@ -91,6 +97,7 @@ if usage_type == 'specific':
   fig.update_yaxes(range=[-20, df[df.columns[0]].max() + 10], secondary_y=True)
 
 # ---------------------------------------------------------------
-# display the figure
+# display and/or save the figure
 # ---------------------------------------------------------------
-fig.show()
+# fig.show()
+fig.write_html('saved_figure.html', include_plotlyjs='cdn')
